@@ -4,7 +4,7 @@ A Star Wars api that displays details about starships and images related to them
 
 ##
 **Created By:** Elisha Atulomah, *In a bid to understand __authentication__ and the combination of the __server__ and __client__ within the same folder.*
-
+##
 ### Instructions
 * this is 1 
 
