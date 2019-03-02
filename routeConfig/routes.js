@@ -11,6 +11,7 @@ module.exports = server => {
   server.post('/api/upload', authenticate, postImage);
   server.post('/api/login', login);
   server.get('/api/starships', authenticate, getStarships);
+  server.get('/api/starships/page=2', authenticate, nextStarships);
   server.get('/api/users', authenticate, getUsers);
   server.get('/api/images', authenticate, getImages);
   server.put('/api/images/:id', authenticate, updateImages);
@@ -69,9 +70,11 @@ function postImage(req, res) {
       res.status(200).json({ data, message: 'Image added sucessfully' });
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ error: 'The database update could not be completed.' });
+      res.status(500).json({
+        error: `An image with the name: ${
+          req.body.name
+        } already exists in the database.`,
+      });
     });
 }
 
@@ -103,7 +106,7 @@ function login(req, res) {
     );
 }
 
-//******************** GET ALL STARSHIPS ******************/
+//******************** GET 10 STARSHIPS ******************/
 function getStarships(req, res) {
   const requestOptions = {
     headers: { accept: 'application/json' },
@@ -115,7 +118,23 @@ function getStarships(req, res) {
       res.status(200).json(response.data.results);
     })
     .catch(err => {
-      res.status(500).json({ message: 'Error Fetching Jokes', error: err });
+      res.status(500).json({ message: 'Error Fetching Starships', error: err });
+    });
+}
+
+//******************** GET NEXT 10 STARSHIPS ******************/
+function nextStarships(req, res) {
+  const requestOptions = {
+    headers: { accept: 'application/json' },
+  };
+
+  axios
+    .get('https://swapi.co/api/starships/?page=2', requestOptions)
+    .then(response => {
+      res.status(200).json(response.data.results);
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error Fetching Starships', error: err });
     });
 }
 
