@@ -9,8 +9,7 @@ module.exports = {
     useNullAsDefault: true,
   },
 
-  // migrations: {
-  //   directory: './data/migrations',
-  //   tableName: 'knex_migrations',
-  // },
+  migrations: {
+    directory: './data/migrations',
+  },
 };
