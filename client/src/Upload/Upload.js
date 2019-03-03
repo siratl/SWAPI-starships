@@ -7,7 +7,7 @@ class Upload extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="upload">
         <h2>Upload</h2>
       </div>
     );

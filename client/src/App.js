@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <nav>
+          <nav className="Nav-bar">
             <NavLink to="/">Home</NavLink>
             &nbsp; | &nbsp;
             <NavLink to="/login">Login</NavLink>
@@ -30,7 +30,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/upload" component={Upload} />
         </main>
-        <footer>footer</footer>
+        <footer className="footer">footer</footer>
       </div>
     );
   }

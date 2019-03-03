@@ -6,7 +6,7 @@ class Starships extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="home">
         <h2>Starships</h2>
       </div>
     );

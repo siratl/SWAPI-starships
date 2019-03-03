@@ -7,7 +7,7 @@ class Register extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="register">
         <h2>Register</h2>
       </div>
     );
