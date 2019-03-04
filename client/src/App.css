@@ -17,6 +17,9 @@
   justify-content: center;
   background-color: rgb(255, 169, 64);
   padding: 15px 15px;
+  box-shadow: 1px 1px 7px black;
+  z-index: 12;
+  position: relative;
 }
 
 .Login-page {
@@ -35,6 +38,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  z-index: -5;
 }
 
 .register {
@@ -60,15 +64,30 @@
   background-color: rgb(38, 37, 44);
 }
 
-.App-link {
-  color: #61dafb;
+.cardsList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card {
+  border: 1px solid red;
+  margin: 20px;
+  max-width: 318px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.cardBody {
+  border: 1px solid red
+  
+}
+
+.cardTitle {
+  font-weight: 500;
+  color: black;
+}
+
+.cardText {
+  color: black;
 }

@@ -8,13 +8,11 @@ const { generateToken } = require('../auth/tokenService');
 
 module.exports = server => {
   server.post('/api/register', register);
-  server.post('/api/upload', authenticate, postImage);
+  server.post('/api/upload', authenticate, addStarship);
   server.post('/api/login', login);
   server.get('/api/starships', authenticate, getStarships);
-  server.get('/api/starships/page=2', authenticate, nextStarships);
   server.get('/api/users', authenticate, getUsers);
-  server.get('/api/images', authenticate, getImages);
-  server.put('/api/images/:id', authenticate, updateImages);
+  server.put('/api/images/:id', authenticate, updateStarship);
 };
 
 //******************** REGISTER NEW USER ******************/
@@ -54,24 +52,25 @@ function register(req, res) {
     });
 }
 
-//******************** POST IMAGES ******************/
-function postImage(req, res) {
-  const { name, imageUrl } = req.body;
-  const data = { name, imageUrl };
+//******************** ADD STARSHIP ******************/
+function addStarship(req, res) {
+  const { name, imageUrl, starship_class } = req.body;
+  const data = { name, imageUrl, starship_class };
 
-  if (!name || !imageUrl) {
+  if (!name || !imageUrl || !starship_class) {
     return res.status(417).json({
-      error: 'name and url are REQUIRED to update database.',
+      error:
+        'A Name, imageUrl and starship_class are REQUIRED to add content to the database.',
     });
   }
-  db('images')
+  db('spaceships')
     .insert(data)
     .then(image => {
-      res.status(200).json({ data, message: 'Image added sucessfully' });
+      res.status(200).json({ data, message: 'Data added sucessfully' });
     })
     .catch(err => {
       res.status(500).json({
-        error: `An image with the name: ${
+        error: `Data with the name: ${
           req.body.name
         } already exists in the database.`,
       });
@@ -106,36 +105,13 @@ function login(req, res) {
     );
 }
 
-//******************** GET 10 STARSHIPS ******************/
+//******************** GET STARSHIPS ******************/
 function getStarships(req, res) {
-  const requestOptions = {
-    headers: { accept: 'application/json' },
-  };
-
-  axios
-    .get('https://swapi.co/api/starships', requestOptions)
-    .then(response => {
-      res.status(200).json(response.data.results);
+  db('spaceships')
+    .then(ship => {
+      res.json(ship);
     })
-    .catch(err => {
-      res.status(500).json({ message: 'Error Fetching Starships', error: err });
-    });
-}
-
-//******************** GET NEXT 10 STARSHIPS ******************/
-function nextStarships(req, res) {
-  const requestOptions = {
-    headers: { accept: 'application/json' },
-  };
-
-  axios
-    .get('https://swapi.co/api/starships/?page=2', requestOptions)
-    .then(response => {
-      res.status(200).json(response.data.results);
-    })
-    .catch(err => {
-      res.status(500).json({ message: 'Error Fetching Starships', error: err });
-    });
+    .catch(err => res.send(err));
 }
 
 //******************** GET ALL USERS ******************/
@@ -148,27 +124,17 @@ function getUsers(req, res) {
     .catch(err => res.send(err));
 }
 
-//******************** GET ALL IMAGES ******************/
-function getImages(req, res) {
-  db('images')
-    .select('id', 'name', 'imageUrl')
-    .then(images => {
-      res.json(images);
-    })
-    .catch(err => res.send(err));
-}
-
-//************************** UPDATE IMAGES *************************/
-function updateImages(req, res) {
+//************************** UPDATE STARSHIP *************************/
+function updateStarship(req, res) {
   const changes = req.body;
-  db('images')
+  db('spaceships')
     .where({ id: req.params.id })
     .update(changes)
     .then(didUpdate => {
       didUpdate
         ? res
             .status(200)
-            .json({ message: 'Data update sucessful', updated: changes })
+            .json({ message: 'Data update sucessfull', updated: changes })
         : res
             .status(404)
             .json({ error: 'The Image with the specified ID does not exist.' });
