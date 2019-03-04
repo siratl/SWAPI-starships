@@ -79,15 +79,25 @@
 }
 
 .cardBody {
-  border: 1px solid red
-  
+  border: 1px solid red;
+  padding: 5px 10px;
 }
 
 .cardTitle {
   font-weight: 500;
   color: black;
+  
 }
 
 .cardText {
   color: black;
+  
+  margin: 2px 0;
+  
+}
+
+.dateText {
+  color: white;
+  
+  
 }

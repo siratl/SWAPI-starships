@@ -108,6 +108,7 @@ function login(req, res) {
 //******************** GET STARSHIPS ******************/
 function getStarships(req, res) {
   db('spaceships')
+    .select()
     .then(ship => {
       res.json(ship);
     })

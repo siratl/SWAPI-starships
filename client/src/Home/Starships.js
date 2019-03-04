@@ -6,11 +6,10 @@ import { Card, CardBody, CardTitle, CardText, CardImg } from 'reactstrap';
 class Starships extends Component {
   state = {
     starships: [],
-    next: '',
   };
 
   componentDidMount = () => {
-    const url = 'https://swapi.co/api/starships';
+    const url = 'http://localhost:4000/api/starships';
     const token = localStorage.getItem('jwt');
     const reqOptions = {
       headers: {
@@ -20,8 +19,10 @@ class Starships extends Component {
     axios
       .get(url, reqOptions)
       .then(res => {
-        this.setState({ starships: res.data.results, next: res.data.next });
+        console.log(res.data);
+        this.setState({ starships: res.data });
       })
+
       .catch(err => console.log(err));
   };
 
@@ -43,13 +44,12 @@ class Starships extends Component {
                   <CardTitle className="cardTitle">
                     <h5>{ship.name}</h5>
                   </CardTitle>
+                  <CardText className="cardText">{ship.model}</CardText>
                   <CardText className="cardText">
-                    This is a wider card with supporting text below .
+                    {ship.starship_class}
                   </CardText>
                   <CardText>
-                    <small className="text-muted">
-                      Last updated 3 mins ago
-                    </small>
+                    <small className="dateText">Last updated 3 mins ago</small>
                   </CardText>
                 </CardBody>
               </Card>
