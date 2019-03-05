@@ -30,7 +30,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/upload" component={Upload} />
         </main>
-        <footer className="footer">footer</footer>
+        <footer className="footer">&copy; Elisha Atulomah 2019</footer>
       </div>
     );
   }

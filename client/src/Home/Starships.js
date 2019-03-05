@@ -27,6 +27,8 @@ class Starships extends Component {
   };
 
   render() {
+    const url =
+      'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=220';
     return (
       <div className="home">
         <h2>Starships</h2>
@@ -35,9 +37,10 @@ class Starships extends Component {
             return (
               <Card className="card" key={ship.name}>
                 <CardImg
+                  className="cardImage"
                   top
                   width="100%"
-                  src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=220"
+                  src={ship.imageUrl === 'no data' ? url : ship.imageUrl}
                   alt="Card image cap"
                 />
                 <CardBody className="cardBody">

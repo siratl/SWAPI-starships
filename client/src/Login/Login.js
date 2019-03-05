@@ -29,8 +29,8 @@ class Login extends Component {
   render() {
     return (
       <div className="Login-page">
-        <h2>Login</h2>
-        <Form onSubmit={this.handleSubmit}>
+        <Form className="Login-form" onSubmit={this.handleSubmit}>
+          <h2>Login</h2>
           <FormGroup row>
             <Label for="username" sm={2}>
               Username

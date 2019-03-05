@@ -27,8 +27,8 @@ class Upload extends Component {
   render() {
     return (
       <div className="upload">
-        <h2>Upload</h2>
-        <Form onSubmit={this.handleSubmit}>
+        <Form className="upload-form" onSubmit={this.handleSubmit}>
+          <h2>Upload</h2>
           <FormGroup row>
             <Label for="name" sm={2}>
               Name

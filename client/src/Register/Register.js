@@ -26,8 +26,8 @@ class Register extends Component {
   render() {
     return (
       <div className="register">
-        <h2>Register</h2>
-        <Form onSubmit={this.handleSubmit}>
+        <Form className="register-form" onSubmit={this.handleSubmit}>
+          <h2>Register</h2>
           <FormGroup row>
             <Label for="username" sm={2}>
               Username
